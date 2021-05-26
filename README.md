@@ -19,3 +19,6 @@ Also, I want to learn golang.
 2. `postgres` 
 3. `go`
 4. `postman` 
+
+## To run application locally
+Begin by running `cp .env.example .env` , this is where you will need to fill in environment variables.
