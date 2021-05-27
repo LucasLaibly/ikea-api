@@ -11,13 +11,16 @@ import (
 )
 
 type Customer struct {
-	ID        string    `gorm:"type:uuid;primary;default:uuid_generate_v4()"`
-	Name      string    `gorm:"size:255;not null;unique" json:"nickname"`
+	ID        string    `gorm:"type:uuid;primary" json:"id"`
+	Name      string    `gorm:"size:255;not null;unique" json:"name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
+/*
+Gorm Hook, BeforeCreate Customer, generate a new uuid
+*/
 func (customer *Customer) BeforeCreate(scope *gorm.Scope) error {
 	scope.SetColumn("ID", uuid.New().String())
 	return nil
@@ -47,7 +50,7 @@ func (customer *Customer) Validate(action string) error {
 Notes for the future:
 first  parameter  set customer is what model the function can be operated on(?? someone please explain ??)
 second parameter  set is the parameters for the function
-third  parameter  set is a multi-value return from the function. Both a Customer and an error
+third  parameter  set is a multi-value return from the function. Both a Customer and an error in this case
 */
 func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	var err error
