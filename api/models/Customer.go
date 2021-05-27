@@ -12,7 +12,7 @@ import (
 
 type Customer struct {
 	ID        string    `gorm:"type:uuid;primary" json:"id"`
-	Name      string    `gorm:"size:255;not null;unique" json:"name"`
+	Name      string    `gorm:"size:30;not null;unique" json:"name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
