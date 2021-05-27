@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"html"
 	"strings"
 	"time"
@@ -10,7 +11,7 @@ import (
 )
 
 type Customer struct {
-	ID        string    `pgsql:"type:uuid;primary;default:uuid_generate_v4()"`
+	ID        string    `gorm:"type:uuid;primary;default:uuid_generate_v4()"`
 	Name      string    `gorm:"size:255;not null;unique" json:"nickname"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
@@ -27,4 +28,46 @@ func (customer *Customer) Prepare() {
 	customer.Email = html.EscapeString(strings.TrimSpace(customer.Email))
 	customer.CreatedAt = time.Now()
 	customer.UpdatedAt = time.Now()
+}
+
+func (customer *Customer) Validate(action string) error {
+	switch strings.ToLower(action) {
+	default:
+		if customer.Name == "" {
+			return errors.New("Name Required.")
+		}
+		if customer.Email == "" {
+			return errors.New("Email Required.")
+		}
+		return nil
+	}
+}
+
+/*
+Notes for the future:
+first  parameter  set customer is what model the function can be operated on(?? someone please explain ??)
+second parameter  set is the parameters for the function
+third  parameter  set is a multi-value return from the function. Both a Customer and an error
+*/
+func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
+	var err error
+	err = db.Debug().Create(&customer).Error
+
+	if err != nil {
+		return &Customer{}, err
+	}
+
+	return customer, nil
+}
+
+func (customer *Customer) FindUserByID(db *gorm.DB, uid string) (*Customer, error) {
+	var err error
+
+	err = db.Debug().Model(Customer{}).Where("id = ?", uid).Take(&customer).Error
+
+	if err != nil {
+		return &Customer{}, err
+	}
+
+	return customer, nil
 }
