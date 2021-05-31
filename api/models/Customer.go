@@ -26,6 +26,9 @@ func (customer *Customer) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
+/*
+Prepare model
+*/
 func (customer *Customer) Prepare() {
 	customer.Name = html.EscapeString(strings.TrimSpace(customer.Name))
 	customer.Email = html.EscapeString(strings.TrimSpace(customer.Email))
@@ -33,6 +36,9 @@ func (customer *Customer) Prepare() {
 	customer.UpdatedAt = time.Now()
 }
 
+/*
+Validation data provided
+*/
 func (customer *Customer) Validate(action string) error {
 	switch strings.ToLower(action) {
 	default:
@@ -63,6 +69,9 @@ func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	return customer, nil
 }
 
+/*
+Find user by their ID
+*/
 func (customer *Customer) FindUserByID(db *gorm.DB, uid string) (*Customer, error) {
 	var err error
 
