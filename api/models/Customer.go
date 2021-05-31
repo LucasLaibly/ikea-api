@@ -54,9 +54,9 @@ func (customer *Customer) Validate(action string) error {
 
 /*
 Notes for the future:
-first  parameter  set customer is what model the function can be operated on(?? someone please explain ??)
-second parameter  set is the parameters for the function
-third  parameter  set is a multi-value return from the function. Both a Customer and an error in this case
+first  arugment  set fields on model (i.e. Customer)
+second arugment  set is the arugments for the function
+third  arugment  set is a multi-value return from the function. Both a Customer and an error in this case
 */
 func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	var err error
