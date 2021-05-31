@@ -1,0 +1,13 @@
+package middlewares
+
+import "net/http"
+
+/*
+Set Next Middleware
+*/
+func add(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		next(w, r)
+	}
+}
