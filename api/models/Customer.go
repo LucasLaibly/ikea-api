@@ -12,7 +12,7 @@ import (
 
 type Customer struct {
 	ID        string    `gorm:"type:uuid;primary" json:"id"`
-	Name      string    `gorm:"size:255;not null;unique" json:"name"`
+	Name      string    `gorm:"size:30;not null;unique" json:"name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
@@ -26,6 +26,9 @@ func (customer *Customer) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
+/*
+Prepare model
+*/
 func (customer *Customer) Prepare() {
 	customer.Name = html.EscapeString(strings.TrimSpace(customer.Name))
 	customer.Email = html.EscapeString(strings.TrimSpace(customer.Email))
@@ -33,6 +36,9 @@ func (customer *Customer) Prepare() {
 	customer.UpdatedAt = time.Now()
 }
 
+/*
+Validation data provided
+*/
 func (customer *Customer) Validate(action string) error {
 	switch strings.ToLower(action) {
 	default:
@@ -48,9 +54,9 @@ func (customer *Customer) Validate(action string) error {
 
 /*
 Notes for the future:
-first  parameter  set customer is what model the function can be operated on(?? someone please explain ??)
-second parameter  set is the parameters for the function
-third  parameter  set is a multi-value return from the function. Both a Customer and an error in this case
+first  arugment  set fields on model (i.e. Customer)
+second arugment  set is the arugments for the function
+third  arugment  set is a multi-value return from the function. Both a Customer and an error in this case
 */
 func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	var err error
@@ -63,6 +69,9 @@ func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	return customer, nil
 }
 
+/*
+Find user by their ID
+*/
 func (customer *Customer) FindUserByID(db *gorm.DB, uid string) (*Customer, error) {
 	var err error
 
