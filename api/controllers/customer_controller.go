@@ -13,6 +13,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
+/*
+Create customer record
+*/
 func (server *Server) CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -51,6 +54,9 @@ func (server *Server) CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusCreated, customerCreated)
 }
 
+/*
+Find customer by id
+*/
 func (server *Server) FindUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
