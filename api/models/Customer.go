@@ -72,7 +72,7 @@ func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 /*
 Find user by their ID
 */
-func (customer *Customer) FindUserByID(db *gorm.DB, uid string) (*Customer, error) {
+func (customer *Customer) FindCustomerByID(db *gorm.DB, uid string) (*Customer, error) {
 	var err error
 
 	err = db.Debug().Model(Customer{}).Where("id = ?", uid).Take(&customer).Error
