@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 
 	"github.com/LucasLaibly/ikea-api/api/models"
 	"github.com/LucasLaibly/ikea-api/api/responses"
@@ -60,14 +59,11 @@ Find customer by id
 func (server *Server) FindCustomer(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	uid, err := strconv.ParseUint(vars["id"], 10, 32)
-	if err != nil {
-		responses.ERROR(w, http.StatusBadRequest, err)
-	}
+	id := vars["id"]
 
 	customer := models.Customer{}
 
-	customerFound, err := customer.FindCustomerByID(server.DB, string(uid))
+	customerFound, err := customer.FindCustomerByID(server.DB, id)
 
 	if err != nil {
 		responses.ERROR(w, http.StatusBadRequest, err)
