@@ -8,22 +8,22 @@ import (
 )
 
 var customers = []models.Customer{
-	models.Customer{
+	{
 		Name:  "Emma Lejon",
 		Email: "emma.lejon@email.com",
 	},
-	models.Customer{
+	{
 		Name:  "Lucas Laibly",
 		Email: "lucas.laibly@gmail.com",
 	},
 }
 
 var products = []models.Product{
-	models.Product{
+	{
 		Name:        "Table",
 		Description: "Gather the family.",
 	},
-	models.Product{
+	{
 		Name:        "Chair",
 		Description: "Something I could use right about now.",
 	},
@@ -40,7 +40,7 @@ func Load(db *gorm.DB) {
 		log.Fatalf("cannot migrate table: %v", err)
 	}
 
-	for i, _ := range customers {
+	for i := range customers {
 		err = db.Debug().Model(&models.Customer{}).Create(&customers[i]).Error
 		if err != nil {
 			log.Fatalf("cannot see customers table: %v", err)
