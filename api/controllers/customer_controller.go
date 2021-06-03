@@ -57,7 +57,7 @@ func (server *Server) CreateCustomer(w http.ResponseWriter, r *http.Request) {
 /*
 Find customer by id
 */
-func (server *Server) FindUser(w http.ResponseWriter, r *http.Request) {
+func (server *Server) FindCustomer(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	uid, err := strconv.ParseUint(vars["id"], 10, 32)
