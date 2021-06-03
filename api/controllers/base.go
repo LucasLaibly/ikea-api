@@ -26,7 +26,7 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 
 	if err != nil {
 		fmt.Printf("Cannot connect to %s database.", Dbdriver)
-		log.Fatal("Error: %s", err)
+		log.Fatal(fmt.Sprintf("Error: %s", err))
 	} else {
 		fmt.Printf("Successfully connected to database.")
 	}
