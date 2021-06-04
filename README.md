@@ -19,5 +19,15 @@ Also, I want to learn golang and making an imaginary problem keeps it interestin
 2. `postgres` 
 3. `go`
 
-## To run application locally
-Begin by running `cp .env.example .env` , this is where you will need to fill in environment variables.
+## To run application locally (in order)
+> Begin by running `cp .env.example .env`
+
+>`docker-compose up -d` 
+
+>`go run main.go` (todo @ later date, have this kick off automatically w/ d-c up)
+
+>hit endpoints at `http://127.0.0.1:5432/` 
+
+
+## See Postman documentation for examples.
+`link`
