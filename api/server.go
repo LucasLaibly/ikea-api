@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/LucasLaibly/ikea-api/api/controllers"
-	"github.com/LucasLaibly/ikea-api/api/seed"
 	"github.com/joho/godotenv"
 )
 
@@ -31,7 +30,7 @@ func Run() {
 		os.Getenv("DB_NAME"),
 	)
 
-	seed.Load(server.DB)
+	//seed.Load(server.DB)
 
 	server.Run(":8080")
 }
