@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
-	"github.com/LucasLaibly/ikea-api/api/models"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
+
+	"github.com/LucasLaibly/ikea-api/api/models"
 )
 
 type Server struct {
@@ -20,16 +23,18 @@ type Server struct {
 func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
 	var err error
 
-	DBURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", DbUser, DbPassword, DbHost, DbPort, DbName)
+	DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", DbHost, DbPort, DbUser, DbName, DbPassword)
 
 	server.DB, err = gorm.Open(Dbdriver, DBURL)
 
 	if err != nil {
-		fmt.Printf("Cannot connect to %s database.", Dbdriver)
+		fmt.Printf("Cannot connect to %s database. ", Dbdriver)
 		log.Fatal(fmt.Sprintf("Error: %s", err))
 	} else {
 		fmt.Printf("Successfully connected to database.")
 	}
+
+	defer server.DB.Close()
 
 	server.DB.Debug().AutoMigrate(&models.Customer{}, &models.Product{})
 
@@ -39,6 +44,9 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 }
 
 func (server *Server) Run(addr string) {
-	fmt.Println("On port 8080")
+	_ = godotenv.Load()
+
+	fmt.Printf("On port %s", os.Getenv("DB_PORT"))
+
 	log.Fatal(http.ListenAndServe(addr, server.Router))
 }
