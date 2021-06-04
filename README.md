@@ -20,13 +20,13 @@ Also, I want to learn golang and making an imaginary problem keeps it interestin
 3. `go`
 
 ## To run application locally (in order)
-- Begin by running `cp .env.example .env`
+- `cp .env.example .env`, this will create an example of the environment you wish you use.
 
-- `docker-compose up -d` 
+- `docker-compose up -d` , build the images for the container.
 
 - `go run main.go` (todo @ later date, have this kick off automatically w/ d-c up)
 
-- hit endpoints at `http://127.0.0.1:5432/` 
+- hit endpoints at `http://127.0.0.1:5432/`
 
 
 
