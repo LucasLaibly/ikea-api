@@ -37,7 +37,7 @@ func (customer *Customer) Prepare() {
 }
 
 /*
-Validation data provided
+Validate data provided
 */
 func (customer *Customer) Validate(action string) error {
 	switch strings.ToLower(action) {
