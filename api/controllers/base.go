@@ -18,6 +18,9 @@ type Server struct {
 	Router *mux.Router
 }
 
+/*
+Initialize server, trigger migrations
+*/
 func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
 	var err error
 
@@ -43,6 +46,9 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 	server.initializeRoutes()
 }
 
+/*
+Run and report.
+*/
 func (server *Server) Run(addr string) {
 	fmt.Printf("On port %s", addr)
 
