@@ -7,6 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// TODO: This is totally broken, needs to be addressed eventually.
 var customers = []models.Customer{
 	{
 		Name:  "Emma Lejon",
