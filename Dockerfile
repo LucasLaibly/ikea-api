@@ -1,8 +1,6 @@
 # Start from golang base image
 FROM golang:alpine as builder
 
-# ENV GO111MODULE=on
-
 # Install git.
 # Git is required for fetching the dependencies.
 RUN apk update && apk add --no-cache git

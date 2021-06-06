@@ -1,28 +1,32 @@
 version: '3'
 
 services:
-  ikea-postgres:
+  pgsql:
     image: postgres:11-alpine
     environment:
       - POSTGRES_USER=user  
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=app
+      - POSTGRES_HOST=pgsql
+    restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - pgsqldata:/var/lib/postgresql/data
     networks:
       - fullstack
 
-  ikea_web:
+  app:
     build: .
+    env_file:
+      - .env
     ports: 
-      - "8080:8080" 
+      - 8080:8080 
     restart: on-failure
     volumes:
       - api:/usr/src/app/
     depends_on:
-      - ikea-postgres
+      - pgsql
     networks:
       - fullstack
 
