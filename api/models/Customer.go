@@ -14,8 +14,8 @@ type Customer struct {
 	ID        string    `gorm:"type:uuid;primary" json:"id"`
 	Name      string    `gorm:"size:30;not null;" json:"name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updatedAt"`
 }
 
 /*
