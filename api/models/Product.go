@@ -14,9 +14,9 @@ type Product struct {
 	ID          string    `gorm:"type:uuid;primary" json:"id"`
 	Name        string    `gorm:"size:30;not null;unique" json:"name"`
 	Description string    `gorm:"size:200;not null;unique" json:"description"`
-	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-	DeletedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"deleted_at"`
+	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updatedAt"`
+	DeletedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"deletedAt"`
 }
 
 /*
