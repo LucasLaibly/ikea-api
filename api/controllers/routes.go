@@ -6,6 +6,9 @@ func (s *Server) initializeRoutes() {
 	// Home Route
 	s.Router.HandleFunc("/", middlewares.SetMiddlewareJSON(s.Home)).Methods("GET")
 
+	// Carts
+	s.Router.HandleFunc("/customers/{id}/cart", middlewares.SetMiddlewareJSON(s.CreateCart)).Methods("POST")
+
 	// Customers
 	s.Router.HandleFunc("/customers/{id}", middlewares.SetMiddlewareJSON(s.FindCustomer)).Methods("GET")
 	s.Router.HandleFunc("/customers", middlewares.SetMiddlewareJSON(s.CreateCustomer)).Methods("POST")
