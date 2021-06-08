@@ -8,24 +8,29 @@ import (
 )
 
 type Cart struct {
-	ID         string `gorm:"type:uuid;primary" json:"id"`
-	Customer   Customer
-	CustomerID Customer
-	ProductID  Product
-	CreatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
+	ID         string    `gorm:"type:uuid;primary" json:"id"`
+	Customer   Customer  `json:"customer"`
+	CustomerID string    `gorm:"not null;" json:"customerId"`
+	Product    Product   `json:"product"`
+	ProductID  string    `gorm:"not null;" json:"productId"`
+	CreatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updatedAt"`
 }
 
 /*
-Create uuid for cart?
+Create uuid for cart
 */
 func (cart *Cart) BeforeCreate(scope *gorm.Scope) error {
 	scope.SetColumn("ID", uuid.New().String())
 	return nil
 }
 
+/*
+Prepare payload
+*/
 func (cart *Cart) Prepare() {
-	// todo?
+	cart.CreatedAt = time.Now()
+	cart.UpdatedAt = time.Now()
 }
 
 /*
@@ -44,7 +49,7 @@ func (cart *Cart) SaveCart(db *gorm.DB) (*Cart, error) {
 
 /*
 Get all items in a customer's cart
-*/
+
 func (c *Cart) GetAllItemsInCart(db *gorm.DB, uuid string) (*[]Cart, error) {
 	var err error
 
@@ -67,3 +72,4 @@ func (c *Cart) GetAllItemsInCart(db *gorm.DB, uuid string) (*[]Cart, error) {
 
 	return &cart, nil
 }
+*/
