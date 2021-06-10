@@ -12,8 +12,8 @@ import (
 
 type Product struct {
 	ID          string    `gorm:"type:uuid;primary" json:"id"`
-	Name        string    `gorm:"size:30;not null;unique" json:"name"`
-	Description string    `gorm:"size:200;not null;unique" json:"description"`
+	Name        string    `gorm:"size:30;not null;" json:"name"`
+	Description string    `gorm:"size:200;not null;" json:"description"`
 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updatedAt"`
 	DeletedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"deletedAt"`
