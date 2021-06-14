@@ -9,6 +9,8 @@ import (
 	"github.com/LucasLaibly/ikea-api/api/models"
 	"github.com/LucasLaibly/ikea-api/api/responses"
 	"github.com/LucasLaibly/ikea-api/api/utils/formaterror"
+
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -46,4 +48,24 @@ func (server *Server) CreateCart(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Location: ", fmt.Sprintf("%s%s/%s", r.Host, r.URL.Path, cartCreated.ID))
 	responses.JSON(w, http.StatusCreated, cartCreated)
+}
+
+/*
+Get all cart items for a customer
+*/
+func (server *Server) GetAllCartItems(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	id := vars["id"]
+
+	cart := models.Cart{}
+
+	err := cart.GetAllItemsInCart(server.DB, id)
+
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	responses.JSON(w, http.StatusOK, cart)
 }
