@@ -48,28 +48,8 @@ func (cart *Cart) SaveCart(db *gorm.DB) (*Cart, error) {
 }
 
 /*
-Get all items in a customer's cart
-
-func (c *Cart) GetAllItemsInCart(db *gorm.DB, uuid string) (*[]Cart, error) {
-	var err error
-
-	cart := []Cart{}
-
-	err = db.Debug().Model(&Cart{}).Limit(100).Find(&c).Error
-
-	if err != nil {
-		return &[]Cart{}, err
-	}
-
-	if len(cart) > 0 {
-		for i := range cart {
-			err := db.Debug().Model(&Cart{}).Where("id = ?", cart[i].CustomerID).Take(&cart[i].Customer).Error
-			if err != nil {
-				return &[]Cart{}, err
-			}
-		}
-	}
-
-	return &cart, nil
-}
+Get all items in cart for a customer
 */
+func (c *Cart) GetAllItemsInCart(db *gorm.DB, customer_id string) error {
+	return db.Raw("SELECT id, product_id FROM carts WHERE customer_id = ?", customer_id).Scan(c).Error
+}
