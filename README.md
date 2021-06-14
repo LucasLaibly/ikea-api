@@ -30,3 +30,5 @@ Also, I want to learn golang and making an imaginary problem keeps it interestin
 
 @me, link postman docs for the homies.
 
+## @LucasLaibly todo's:
+1. When `GET /customer/[id}/cart` is hit, return all items in JSON encoded payload. Currently, the last item is all that is returned.
