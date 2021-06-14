@@ -14,8 +14,8 @@ type Customer struct {
 	ID        string    `gorm:"type:uuid;primary" json:"id"`
 	Name      string    `gorm:"size:30;not null;" json:"name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updatedAt"`
 }
 
 /*
@@ -54,9 +54,9 @@ func (customer *Customer) Validate(action string) error {
 
 /*
 Notes for the future:
-first  arugment  set fields on model (i.e. Customer)
-second arugment  set is the arugments for the function
-third  arugment  set is a multi-value return from the function. Both a Customer and an error in this case
+first  parameter set is method ownership  (acting on Customer)
+second parameter set is the arugments for the function
+third  parameter set is a multi-value return from the function. Both a Customer and an error in this case
 */
 func (customer *Customer) SaveCustomer(db *gorm.DB) (*Customer, error) {
 	var err error

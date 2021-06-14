@@ -24,9 +24,7 @@ Also, I want to learn golang and making an imaginary problem keeps it interestin
 
 - `docker-compose up -d` , build the images for the container.
 
-- `go run main.go` (todo @ later date, have this kick off automatically w/ d-c up)
-
-- hit endpoints at `http://127.0.0.1:5432/`
+- hit endpoints at `http://localhost:5432/`
 
 
 
